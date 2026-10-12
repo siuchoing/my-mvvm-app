@@ -1,0 +1,49 @@
+<!-- 
+  頁面頂部導覽列 (Page Header)
+  [translucent]="true"：啟用 iOS 專屬的高級「半透明毛玻璃/磨砂」視覺特效。
+  • 運作機制：當下方的內容區域 (<ion-content>) 向上捲動時，動態內容會隱約呈現在導覽列後方，營造出與 iOS 原生系統 100% 相同的精緻層次感。
+  • 備註：此特效在 Android 環境下會自動安全降級（Fallback）為標準的實色（Solid）導覽列，維持跨平台一致的流暢效能。
+-->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>個人檔案</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- 
+  主要內容區域 (Main Content Region)
+  [fullscreen]="true"：開啟全螢幕渲染模式（與頂部 [translucent]="true" 導覽列完美連動）。
+  • 運作機制：將內容區的邊界拉伸至螢幕最頂端，允許滾動內容穿透至半透明導覽列後方，完美呈現 iOS 原生的高質感視覺。
+  • 安全防禦：Ionic 會自動接管並計算手機瀏海與導覽列高度，確保裡面的表單欄位不會被遮擋。
+-->
+<ion-content [fullscreen]="true">
+    <!-- 頁面剛進來時，使用者第一眼會先看到這個位於內容區的大字體標題，往上滾動時它會收縮消失，並把控制權交給上方的固定導覽列 -->
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <!-- size="large"：宣告此為內容區的動態大標題 -->
+      <ion-title size="large">個人檔案</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <!-- 狀態 1：如果有用戶資料，顯示個人檔案 -->
+  @if (user) {
+    <div class="profile-container">
+      <ion-avatar>
+        <img [src]="user.avatarUrl" alt="User Avatar" />
+      </ion-avatar>
+      
+      <h2>{{ user.name }}</h2>
+      <p>{{ user.email }}</p>
+      
+      <ion-button expand="block" (click)="goToSettings()">
+        前往設定
+      </ion-button>
+    </div>
+  } @else {
+    <!-- 狀態 2：如果還在讀取快取，顯示精美的轉圈圈動畫 -->
+    <div class="ion-padding ion-text-center" style="margin-top: 50px;">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p style="color: var(--ion-color-medium);">正在讀取帳號資料...</p>
+    </div>
+  }
+</ion-content>

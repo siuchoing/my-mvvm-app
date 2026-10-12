@@ -1,0 +1,65 @@
+<!-- 
+  頁面頂部導覽列 (Page Header)
+  [translucent]="true"：啟用 iOS 專屬的高級「半透明毛玻璃/磨砂」視覺特效。
+  • 運作機制：當下方的內容區域 (<ion-content>) 向上捲動時，動態內容會隱約呈現在導覽列後方，營造出與 iOS 原生系統 100% 相同的精緻層次感。
+  • 備註：此特效在 Android 環境下會自動安全降級（Fallback）為標準的實色（Solid）導覽列，維持跨平台一致的流暢效能。
+-->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- slot="start"：將內部按鈕群組強制靠左（若在阿拉伯文等 RTL 語系則會自動靠右）配置 -->
+    <ion-buttons slot="start">
+      <!-- 
+        ion-back-button：Ionic 智慧型返回按鈕。
+        • 核心機制：會自動偵測全 App 的「路由歷史導覽紀錄（Navigation History）」。若使用者是從個人檔案頁點擊進來的，點擊此按鈕會觸發平滑的原生動畫倒回上一頁。
+        • defaultHref="/user-profile"（防禦性後備路由）：如果使用者是直接重整網頁、或是複製網址直接進入此設定頁（導致完全沒有歷史紀錄）時，點擊返回會強制安全導向指定的 '/user-profile' 路徑，防止按鈕失效卡死。
+      -->
+      <ion-back-button defaultHref="/user-profile"></ion-back-button>
+    </ion-buttons>
+
+    <!-- 頁面標題 -->
+    <ion-title>修改設定</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- 
+  主要內容區域 (Main Content Region)
+  [fullscreen]="true"：開啟全螢幕渲染模式（與頂部 [translucent]="true" 導覽列完美連動）。
+  • 運作機制：將內容區的邊界拉伸至螢幕最頂端，允許滾動內容穿透至半透明導覽列後方，完美呈現 iOS 原生的高質感視覺。
+  • 安全防禦：Ionic 會自動接管並計算手機瀏海與導覽列高度，確保裡面的表單欄位不會被遮擋。
+-->
+<ion-content class="ion-padding" [fullscreen]="true">
+  <div class="settings-form">
+
+    <!-- 大頭貼預覽區：會隨著下方輸入的網址即時動態改變圖片 -->
+    <div class="avatar-preview-container" style="display: flex; justify-content: center; margin-bottom: 24px; margin-top: 16px;">
+      <ion-avatar style="width: 100px; height: 100px; border: 3px solid var(--ion-color-primary-get);">
+        <img [src]="avatarUrl" alt="User Avatar" />
+      </ion-avatar>
+    </div>
+
+    <!-- 更換大頭貼網址的輸入框，使用 [(ngModel)] 達成即時雙向綁定 -->
+    <!-- 
+      ion-input 配置解析：
+      1. labelPlacement="stacked"：採取「上下堆疊」排版。將標籤文字固定置於輸入框正上方。
+      2. [(ngModel)]="avatarUrl"：
+        啟用 Angular 的雙向資料繫結（Two-Way Data Binding）。畫面輸入什麼，TypeScript 變數就即時同步；
+        反之，當 TypeScript 變數被賦予初始值時，畫面也會自動渲染顯示。
+    -->
+    <ion-item>
+      <ion-input label="大頭貼圖片網址" labelPlacement="stacked" [(ngModel)]="avatarUrl" placeholder="請貼上圖片的 URL 連結"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="修改姓名" labelPlacement="stacked" [(ngModel)]="newName" placeholder="請輸入新姓名"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="修改 Email" labelPlacement="stacked" [(ngModel)]="newEmail" placeholder="請輸入新 Email"></ion-input>
+    </ion-item>
+
+    <!-- 點擊按鈕來進行全域與快取儲存 -->
+    <ion-button expand="block" class="ion-margin-top" (click)="saveData()">
+      儲存變更
+    </ion-button>
+  </div>
+</ion-content>
