@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonAvatar, IonButton, IonSpinner } from '@ionic/angular';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonAvatar, IonButton, IonSpinner, IonButtons, IonBackButton } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserRepository } from '../../repositories/user.repository';
 import { UserModel } from '../../models/user.model';
@@ -27,7 +27,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './user-profile.page.html',
   styleUrls: ['./user-profile.page.scss'],
   standalone: true,
-  imports: [ IonContent, IonHeader, IonTitle, IonToolbar, IonAvatar, IonButton, IonSpinner, CommonModule, FormsModule ]
+  imports: [ IonContent, IonHeader, IonTitle, IonToolbar, IonAvatar, IonButton, IonSpinner, IonButtons, IonBackButton, CommonModule, FormsModule ]
 })
 export class UserProfilePage implements OnInit, OnDestroy {
   private userRepo = inject(UserRepository);

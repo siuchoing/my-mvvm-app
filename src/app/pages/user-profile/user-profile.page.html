@@ -6,17 +6,20 @@
 -->
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <!-- 🟢 就在這裡加入返回按鈕（包裹在 ion-buttons 內並設定靠左 slot="start"） -->
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="返回"></ion-back-button>
+    </ion-buttons>
     <ion-title>個人檔案</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <!-- 
   主要內容區域 (Main Content Region)
   [fullscreen]="true"：開啟全螢幕渲染模式（與頂部 [translucent]="true" 導覽列完美連動）。
   • 運作機制：將內容區的邊界拉伸至螢幕最頂端，允許滾動內容穿透至半透明導覽列後方，完美呈現 iOS 原生的高質感視覺。
   • 安全防禦：Ionic 會自動接管並計算手機瀏海與導覽列高度，確保裡面的表單欄位不會被遮擋。
 -->
-<ion-content [fullscreen]="true">
+<ion-content class="ion-padding" [fullscreen]="true">
     <!-- 頁面剛進來時，使用者第一眼會先看到這個位於內容區的大字體標題，往上滾動時它會收縮消失，並把控制權交給上方的固定導覽列 -->
   <ion-header collapse="condense">
     <ion-toolbar>

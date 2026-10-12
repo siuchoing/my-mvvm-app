@@ -57,7 +57,7 @@ export class SettingsPage implements OnInit, OnDestroy {
   newName: string = '';
   newEmail: string = '';
   avatarUrl: string = 'https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg';
-
+  readonly DEFAULT_AVATAR = 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'
   
   ngOnInit() {
     // 訂閱全域 Repo 響應式資料流，將目前擁有的使用者資訊回填至輸入框中
@@ -88,11 +88,19 @@ export class SettingsPage implements OnInit, OnDestroy {
       // 防禦機制：若使用者把網址刪光了，預設給予萬用 SVG 圖片網址
       avatarUrl: this.avatarUrl.trim() || 'https://www.svgrepo.com/show/384670/account-avatar-profile-user.svg'
     };
-
+    
     // 統一交付 Repo 進行本地快取更新與全 App 響應式廣播
     await this.userRepo.updateUserLocal(userId, updated);
     
     // 透過元件抽換渲染 (Component Render) 的路由切換，毫秒級平滑返回個人主頁
     this.router.navigate(['/user-profile']);
+  }
+
+  // 🟢 核心防禦機制：當 HTML 端的 <img> 載入發生 404 或解析出錯時自動觸發
+  handleImageError(event: Event) {
+    const imgElement = event.target as HTMLImageElement;
+    if (imgElement && imgElement.src !== this.DEFAULT_AVATAR) {
+      imgElement.src = this.DEFAULT_AVATAR; // 即時更換為安全圖示，防止碎裂圖案
+    }
   }
 }

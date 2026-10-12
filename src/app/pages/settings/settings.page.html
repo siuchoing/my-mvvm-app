@@ -33,7 +33,7 @@
     <!-- 大頭貼預覽區：會隨著下方輸入的網址即時動態改變圖片 -->
     <div class="avatar-preview-container" style="display: flex; justify-content: center; margin-bottom: 24px; margin-top: 16px;">
       <ion-avatar style="width: 100px; height: 100px; border: 3px solid var(--ion-color-primary-get);">
-        <img [src]="avatarUrl" alt="User Avatar" />
+        <img [src]="avatarUrl" (error)="handleImageError($event)" alt="User Avatar" />
       </ion-avatar>
     </div>
 

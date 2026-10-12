@@ -1,20 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      主頁
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="button-container">
+    <!-- 按鈕 1：跳轉到 個人檔案 (/profile-user) -->
+    <ion-button expand="block" routerLink="/user-profile" routerDirection="forward">
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      個人檔案
+    </ion-button>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <!-- 按鈕 2：跳轉到 設定 (/setting) -->
+    <ion-button expand="block" color="medium" routerLink="/settings" routerDirection="forward">
+      <ion-icon name="settings-outline" slot="start"></ion-icon>
+      用戶設定
+    </ion-button>
   </div>
 </ion-content>
